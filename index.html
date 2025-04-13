@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>සිංහල හින්දු අලුත් අවුරුද්ද 2025 | සුභම සුභ අත්දැකීම</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts (Noto Sans Sinhala & Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- GSAP for Intro Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Swiper for Carousels -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        /* Base Styling with Pastel Colors */
+        body {
+            font-family: 'Poppins', 'Noto Sans Sinhala', sans-serif;
+            background-color: #f5f5f5;
+            color: #4a4a4a;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+        .dark body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e7ff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a5b4fc;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4c6ef5;
+        }
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(165, 180, 252, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            padding: 12px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.15);
+            background: rgba(165, 180, 252, 0.3);
+        }
+        .dark .theme-toggle {
+            background: rgba(76, 110, 245, 0.2);
+        }
+        .dark .theme-toggle:hover {
+            background: rgba(76, 110, 245, 0.3);
+        }
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100%;
+            background: rgba(224, 231, 255, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1050;
+        }
+        .mobile-menu.open {
+            right: 0;
+        }
+        .dark .mobile-menu {
+            background: rgba(45, 55, 72, 0.95);
+            box-shadow: -5px 0 20px rgba(0,0,0,0.4);
+        }
+        /* Hero Canvas */
+        #hero-three-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.8;
+            mix-blend-mode: soft-light;
+        }
+        .dark #hero-three-canvas {
+            opacity: 0.6;
+            mix-blend-mode: overlay;
+        }
+        /* Intro Animation Overlay */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #e0e7ff;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 1s ease;
+        }
+        .dark #intro-overlay {
+            background: #1a1a1a;
+        }
+        /* Section Title */
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #a5b4fc;
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+        .dark .section-title::after {
+            background: #4c6ef5;
+        }
+        /* Timeline Styling */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #a5b4fc;
+            border-radius: 2px;
+        }
+        .dark .timeline-line::before {
+            background: #4c6ef5;
+        }
+        .timeline-point {
+            position: absolute;
+            left: -8px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: #a5b4fc;
+            border-radius: 50%;
+            border: 3px solid #e0e7ff;
+            z-index: 1;
+        }
+        .dark .timeline-point {
+            background: #4c6ef5;
+            border-color: #2d3748;
+        }
+        /* Custom Tailwind Config */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            indigo: '#a5b4fc',
+                            blue: '#4c6ef5',
+                            pink: '#f9a8d4',
+                            yellow: '#fde68a',
+                            green: '#6ee7b7',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </style>
+</head>
+<body class="bg-pastel-indigo/10 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Intro Animation Overlay -->
+    <div id="intro-overlay" class="flex flex-col items-center justify-center text-center">
+        <h1 class="text-5xl md:text-7xl font-bold text-pastel-blue dark:text-pastel-yellow animate-pulse" style="font-family: 'Noto Sans Sinhala', sans-serif;">
+            සුභ අලුත් අවුරුද්ද 2025
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mt-4">පැමිණෙමින්...</p>
+    </div>
+
+    <!-- p5.js Background Canvas -->
+    <div id="p5-background-canvas" class="fixed top-0 left-0 w-full h-full z-[-1]"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full bg-pastel-indigo/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-sm z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold text-pastel-blue dark:text-pastel-yellow">
+                අවුරුදු <span class="text-pastel-pink">2025</span>
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#significance" class="text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow transition-colors">වැදගත්කම</a>
+                <a href="#customs" class="text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow transition-colors">චාරිත්‍ර</a>
+                <a href="#timeline" class="text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow transition-colors">නැකැත්</a>
+                <a href="#food" class="text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow transition-colors">ආහාර</a>
+                <a href="#games" class="text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow transition-colors">ක්‍රීඩා</a>
+                <a href="#gallery" class="text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow transition-colors">ගැලරිය</a>
+                <a href="#contact" class="bg-pastel-blue text-white px-6 py-2 rounded-full hover:bg-pastel-pink transition-colors">සබඳතා</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 dark:text-gray-300 p-2 rounded-md hover:bg-pastel-indigo/20">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu p-6">
+        <div class="flex justify-between items-center mb-8">
+            <span class="text-2xl font-bold text-pastel-blue dark:text-pastel-yellow">මෙනුව</span>
+            <button id="close-menu-button" class="text-gray-600 dark:text-gray-300 p-2 rounded-md hover:bg-pastel-indigo/20">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <nav class="flex flex-col space-y-4">
+            <a href="#significance" class="text-lg text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow">වැදගත්කම</a>
+            <a href="#customs" class="text-lg text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow">චාරිත්‍ර</a>
+            <a href="#timeline" class="text-lg text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow">නැකැත්</a>
+            <a href="#food" class="text-lg text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow">ආහාර</a>
+            <a href="#games" class="text-lg text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow">ක්‍රීඩා</a>
+            <a href="#gallery" class="text-lg text-gray-600 dark:text-gray-300 hover:text-pastel-blue dark:hover:text-pastel-yellow">ගැලරිය</a>
+            <a href="#contact" class="inline-block bg-pastel-blue text-white px-6 py-3 rounded-full text-center">සබඳතා</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-container relative min-h-screen flex items-center justify-center bg-gradient-to-br from-pastel-indigo/30 via-pastel-pink/30 to-pastel-yellow/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div id="hero-three-canvas"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h1 class="text-5xl md:text-7xl font-bold text-pastel-blue dark:text-pastel-yellow mb-6" data-aos="fade-down" style="font-family: 'Noto Sans Sinhala', sans-serif;">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-pastel-pink to-pastel-blue">සුභ</span> අලුත් අවුරුද්දක්!
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto" data-aos="fade-up">
+                2025 සිංහල හා හින්දු අලුත් අවුරුද්ද සමරමු! සාමය, සතුට සහ සෞභාග්‍යය පිරි නව බලාපොරොත්තු ගෙන එමු.
+            </p>
+            <!-- Countdown Timer -->
+            <div class="flex justify-center space-x-4 mb-12" data-aos="zoom-in">
+                <div class="bg-pastel-indigo/50 dark:bg-gray-800/50 p-4 rounded-xl w-24 md:w-32">
+                    <span id="days" class="text-4xl md:text-5xl font-bold text-pastel-blue dark:text-pastel-yellow">00</span>
+                    <span class="block text-sm text-gray-600 dark:text-gray-400">දින</span>
+                </div>
+                <div class="bg-pastel-indigo/50 dark:bg-gray-800/50 p-4 rounded-xl w-24 md:w-32">
+                    <span id="hours" class="text-4xl md:text-5xl font-bold text-pastel-blue dark:text-pastel-yellow">00</span>
+                    <span class="block text-sm text-gray-600 dark:text-gray-400">පැය</span>
+                </div>
+                <div class="bg-pastel-indigo/50 dark:bg-gray-800/50 p-4 rounded-xl w-24 md:w-32">
+                    <span id="minutes" class="text-4xl md:text-5xl font-bold text-pastel-blue dark:text-pastel-yellow">00</span>
+                    <span class="block text-sm text-gray-600 dark:text-gray-400">මිනිත්තු</span>
+                </div>
+                <div class="bg-pastel-indigo/50 dark:bg-gray-800/50 p-4 rounded-xl w-24 md:w-32">
+                    <span id="seconds" class="text-4xl md:text-5xl font-bold text-pastel-blue dark:text-pastel-yellow">00</span>
+                    <span class="block text-sm text-gray-600 dark:text-gray-400">තත්පර</span>
+                </div>
+            </div>
+            <a href="#significance" class="bg-pastel-blue text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-pastel-pink transition-all" data-aos="fade-up">
+                ගවේෂණය කරන්න
+            </a>
+        </div>
+    </section>
+
+    <!-- Significance Section -->
+    <section id="significance" class="py-24 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-4xl font-bold text-center mb-16 text-pastel-blue dark:text-pastel-yellow" data-aos="fade-up">අලුත් අවුරුද්දේ වැදගත්කම</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1618244166968-3b96e7c89f0c" alt="Sinhala New Year Symbol" class="rounded-xl shadow-lg w-full h-64 object-cover">
+                </div>
+                <div data-aos="fade-left" class="text-gray-600 dark:text-gray-300">
+                    <p class="mb-6 text-lg">
+                        සිංහල හා හින්දු අලුත් අවුරුද්ද <strong class="text-pastel-blue dark:text-pastel-yellow">ශ්‍රී ලංකාවේ ප්‍රධාන සංස්කෘතික උත්සවයකි</strong>. හිරු මීන රාශියෙන් මේෂ රාශියට ගමන් කිරීම සනිටුහන් කරන මෙය, නව කෘෂිකාර්මික චක්‍රයක ආරම්භය සහ අස්වැන්නෙන් පසු විවේකය සමරයි.
+                    </p>
+                    <p class="mb-6 text-lg">
+                        මෙය පවුල් එක්වීම, පැරණි ආතල් අමතක කිරීම සහ <strong class="text-pastel-blue dark:text-pastel-yellow">සබඳතා නැවුම් කිරීම</strong> සඳහා කැපවූ කාලයකි. සම්ප්‍රදායික චාරිත්‍ර, ආගමික වතාවත්, සහ ප්‍රජා ක්‍රියාකාරකම් තුළින් අපගේ සංස්කෘතික බැඳීම් ශක්තිමත් වේ.
+                    </p>
+                    <ul class="list-none space-y-4">
+                        <li class="flex items-center"><svg class="h-6 w-6 text-passel-green mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>නව ආරම්භයක සංකේතය</li>
+                        <li class="flex items-center"><svg class="h-6 w-6 text-pastel-green mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>පවුල් හා ප්‍රජා බැඳීම්</li>
+                        <li class="flex items-center"><svg class="h-6 w-6 text-pastel-green mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>සංස්කෘතික උරුමය පෝෂණය</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customs Section -->
+    <section id="customs" class="py-24 bg-pastel-yellow/20 dark:bg-gray-900/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-4xl font-bold text-center mb-16 text-pastel-blue dark:text-pastel-yellow" data-aos="fade-up">ප්‍රධාන චාරිත්‍ර</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2" data-aos="fade-up">
+                    <img src="https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg" alt="Bath for Old Year" class="h-32 w-full object-cover rounded-t-xl mb-4">
+                    <h3 class="text-xl font-semibold text-pastel-blue dark:text-pastel-yellow">පරණ අවුරුද්දට ස්නානය</h3>
+                    <p class="text-gray-600 dark:text-gray-400">පවිත්‍ර වීම සඳහා ඉඹුල්පත් යුෂ සමඟ ස්නානය.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1567620834943-8dfae0b7bf36" alt="Punya Kalaya" class="h-32 w-full object-cover rounded-t-xl mb-4">
+                    <h3 class="text-xl font-semibold text-pastel-blue dark:text-pastel-yellow">පුණ්‍ය කාලය</h3>
+                    <p class="text-gray-600 dark:text-gray-400">ආගමික වතාවත් සඳහා වෙන් වූ සුබ කාලය.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg" alt="Cooking" class="h-32 w-full object-cover rounded-t-xl mb-4">
+                    <h3 class="text-xl font-semibold text-pastel-blue dark:text-pastel-yellow">ආහාර පිසීම</h3>
+                    <p class="text-gray-600 dark:text-gray-400">කිරි ඉතිරවීම සහ කිරිබත් පිළියෙළ කිරීම.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-24 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-4xl font-bold text-center mb-16 text-pastel-blue dark:text-pastel-yellow" data-aos="fade-up">නැකැත් වේලාවන් 2025</h2>
+            <div class="max-w-3xl mx-auto relative timeline-line pl-12 space-y-12">
+                <div class="relative" data-aos="fade-left">
+                    <div class="timeline-point"></div>
+                    <p class="text-sm font-medium text-pastel-blue dark:text-pastel-yellow">අප්‍රේල් 13, 08:57 PM</p>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white">පුණ්‍ය කාලය</h3>
+                    <p class="text-gray-600 dark:text-gray-400">ආගමික වතාවත් සඳහා වෙන් වූ කාලය.</p>
+                </div>
+                <div class="relative" data-aos="fade-left" data-aos-delay="100">
+                    <div class="timeline-point"></div>
+                    <p class="text-sm font-medium text-pastel-blue dark:text-pastel-yellow">අප්‍රේල් 14, 03:21 AM</p>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white">අලුත් අවුරුදු උදාව</h3>
+                    <p class="text-gray-600 dark:text-gray-400">සූර්ය සංක්‍රාන්තිය සමඟ නව වසර උදාව.</p>
+                </div>
+                <div class="relative" data-aos="fade-left" data-aos-delay="200">
+                    <div class="timeline-point"></div>
+                    <p class="text-sm font-medium text-pastel-blue dark:text-pastel-yellow">අප්‍රේල් 14, 04:04 AM</p>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white">ආහාර පිසීම</h3>
+                    <p class="text-gray-600 dark:text-gray-400">තඹ ඇඳුමින් දකුණු දිශාවට කිරිබත් පිසීම.</p>
+                </div>
+                <div class="relative" data-aos="fade-left" data-aos-delay="300">
+                    <div class="timeline-point"></div>
+                    <p class="text-sm font-medium text-pastel-blue dark:text-pastel-yellow">අප්‍රේල් 14, 06:44 AM</p>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white">ආහාර අනුභවය</h3>
+                    <p class="text-gray-600 dark:text-gray-400">මුතු/සුදු ඇඳුමින් දකුණු දිශාවට ආහාර ගැනීම.</p>
+                </div>
+                <div class="relative" data-aos="fade-left" data-aos-delay="400">
+                    <div class="timeline-point"></div>
+                    <p class="text-sm font-medium text-pastel-blue dark:text-pastel-yellow">අප්‍රේල් 16, 09:04 AM</p>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white">හිස තෙල් ගෑම</h3>
+                    <p class="text-gray-600 dark:text-gray-400">කොළ ඇඳුමින් උතුරු දිශාවට තෙල් ගෑම.</p>
+                </div>
+                <div class="relative" data-aos="fade-left" data-aos-delay="500">
+                    <div class="timeline-point"></div>
+                    <p class="text-sm font-medium text-pastel-blue dark:text-pastel-yellow">අප්‍රේල් 17, 09:03 AM</p>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white">රැකියාවට පිටත්ව යාම</h3>
+                    <p class="text-gray-600 dark:text-gray-400">රන් ඇඳුමින් උතුරු දිශාවට පිටත්වීම.</p>
+                </div>
+            </div>
+            <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-12 italic">* නිල නැකැත් වේලාවන් රජයේ නිවේදන මගින් තහවුරු කරගන්න.</p>
+        </div>
+    </section>
+
+    <!-- Food Section -->
+    <section id="food" class="py-24 bg-pastel-yellow/20 dark:bg-gray-900/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-4xl font-bold text-center mb-16 text-pastel-blue dark:text-pastel-yellow" data-aos="fade-up">අවුරුදු කෑම මේසය</h2>
+            <div class="swiper-container food-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all">
+                            <img src="https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg" alt="Kiribath" class="h-48 w-full object-cover rounded-t-xl">
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-pastel-blue dark:text-pastel-yellow">කිරිබත්</h3>
+                                <p class="text-gray-600 dark:text-gray-400">සෞභාග්‍යයේ සංකේතය.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all">
+                            <img src="https://images.unsplash.com/photo-1603046893748-9d7dcdf76e72" alt="Kavum" class="h-48 w-full object-cover rounded-t-xl">
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-pastel-blue dark:text-pastel-yellow">කැවුම්</h3>
+                                <p class="text-gray-600 dark:text-gray-400">විවිධ රසයෙන් යුත් මිහිරි රස.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all">
+                            <img src="https://images.pexels.com/photos/162744/sweet-pastries-162744.jpeg" alt="Kokis" class="h-48 w-full object-cover rounded-t-xl">
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-pastel-blue dark:text-pastel-yellow">කොකිස්</h3>
+                                <p class="text-gray-600 dark:text-gray-400">ප්‍රියජනක රසකැවිල්ල.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="py-24 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-4xl font-bold text-center mb-16 text-pastel-blue dark:text-pastel-yellow" data-aos="fade-up">අවුරුදු ක්‍රීඩා</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-pastel-indigo/10 dark:bg-gray-700/50 p-6 rounded-xl text-center hover:shadow-lg transition-all" data-aos="fade-up">
+                    <img src="https://images.unsplash.com/photo-1593642532973-d31b97d0e6b8" alt="Pancha Keliya" class="h-24 w-24 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-semibold text-pastel-blue dark:text-pastel-yellow">පංච කෙළිය</h3>
+                    <p class="text-gray-600 dark:text-gray-400">උපායශීලී පුවරු ක්‍රීඩාව.</p>
+                </div>
+                <div class="bg-pastel-indigo/10 dark:bg-gray-700/50 p-6 rounded-xl text-center hover:shadow-lg transition-all" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg" alt="Onchili" class="h-24 w-24 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-semibold text-pastel-blue dark:text-pastel-yellow">ඔන්චිලි පැදීම</h3>
+                    <p class="text-gray-600 dark:text-gray-400">වාරම් ගැයුම සමඟ විනෝදය.</p>
+                </div>
+                <div class="bg-pastel-indigo/10 dark:bg-gray-700/50 p-6 rounded-xl text-center hover:shadow-lg transition-all" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1593642634367-dce0d8b5f3a6" alt="Kotta Pora" class="h-24 w-24 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-semibold text-pastel-blue dark:text-pastel-yellow">කොට්ටා පොර</h3>
+                    <p class="text-gray-600 dark:text-gray-400">ශක්තියේ තරඟය.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (New Feature) -->
+    <section id="gallery" class="py-24 bg-pastel-yellow/20 dark:bg-gray-900/50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-4xl font-bold text-center mb-16 text-pastel-blue dark:text-pastel-yellow" data-aos="fade-up">සංස්කෘතික ගැලරිය</h2>
+            <div class="swiper-container gallery-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1618244166968-3b96e7c89f0c" alt="New Year Celebration" class="w-full h-96 object-cover rounded-xl">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg" alt="Traditional Food" class="w-full h-96 object-cover rounded-xl">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1567620834943-8dfae0b7bf36" alt="Rituals" class="w-full h-96 object-cover rounded-xl">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive 3D Section -->
+    <section id="interactive-3d" class="py-24 bg-gradient-to-b from-pastel-indigo/20 to-white dark:from-gray-900 dark:to-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="section-title text-4xl font-bold mb-6 text-pastel-blue dark:text-pastel-yellow" data-aos="fade-up">ත්‍රිමාණ (3D) අවුරුදු ලෝකය</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto" data-aos="fade-up">
+                හිරු, පෘථිවි, සහ චන්ද්‍රයා ඇතුළත් අපගේ ත්‍රිමාණ ලෝකය ගවේෂණය කරන්න!
+            </p>
+            <div id="three-container" class="relative h-[600px] w-full max-w-5xl mx-auto bg-pastel-indigo/10 dark:bg-gray-700/50 rounded-xl shadow-inner overflow-hidden" data-aos="zoom-in">
+                <div id="3d-loader" class="absolute inset-0 flex items-center justify-center bg-pastel-indigo/20 dark:bg-gray-700/50">
+                    <div class="loader border-4 border-t-pastel-blue w-12 h-12 rounded-full animate-spin"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-pastel-indigo/90 dark:bg-gray-900 text-gray-300 py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold text-pastel-yellow mb-4">අවුරුදු 2025</h3>
+                    <p class="text-gray-400">ශ්‍රී ලංකාවේ සිංහල හා හින්දු අලුත් අවුරුද්ද සමරන සංස්කෘතික මධ්‍යස්ථානය.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-pastel-yellow mb-4">පිටු</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#significance" class="text-gray-400 hover:text-pastel-yellow">වැදගත්කම</a></li>
+                        <li><a href="#customs" class="text-gray-400 hover:text-pastel-yellow">චාරිත්‍ර</a></li>
+                        <li><a href="#timeline" class="text-gray-400 hover:text-pastel-yellow">නැකැත්</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-pastel-yellow mb-4">සම්පත්</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-pastel-yellow">වට්ටෝරු</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-pastel-yellow">නැකැත් PDF</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-pastel-yellow mb-4">සබඳතා</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center"><svg class="h-5 w-5 mr-2 text-pastel-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>+94 11 234 5678</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 mr-2 text-pastel-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>info@avurudu.lk</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500">
+                © 2025 සිංහල හින්දු අලුත් අවුරුද්ද. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <svg id="light-icon" class="h-5 w-5 text-pastel-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        <svg id="dark-icon" class="h-5 w-5 text-gray-300 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize AOS
+            AOS.init({ duration: 1000, once: true, easing: 'ease-out-cubic' });
+
+            // Intro Animation
+            gsap.to("#intro-overlay", {
+                opacity: 0,
+                duration: 2,
+                delay: 2,
+                onComplete: () => {
+                    document.getElementById("intro-overlay").style.display = "none";
+                }
+            });
+
+            // Mobile Menu
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
+            closeMenuButton.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+            // Theme Toggle
+            const themeToggle = document.querySelector('.theme-toggle');
+            const lightIcon = document.getElementById('light-icon');
+            const darkIcon = document.getElementById('dark-icon');
+            const htmlElement = document.documentElement;
+            let currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+            const applyTheme = (theme) => {
+                htmlElement.classList.toggle('dark', theme === 'dark');
+                lightIcon.classList.toggle('hidden', theme === 'dark');
+                darkIcon.classList.toggle('hidden', theme !== 'dark');
+                if (window.p5Sketch) window.p5Sketch.updateTheme(theme);
+                if (window.heroThreeScene) window.heroThreeScene.updateTheme(theme);
+                if (window.interactiveThreeScene) window.interactiveThreeScene.updateTheme(theme);
+            };
+
+            applyTheme(currentTheme);
+            themeToggle.addEventListener('click', () => {
+                currentTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+                applyTheme(currentTheme);
+                localStorage.setItem('theme', currentTheme);
+            });
+
+            // Countdown Timer
+            const countDownDate = new Date("Apr 14, 2025 03:21:00").getTime();
+            const updateCountdown = () => {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    return;
+                }
+                document.getElementById("days").textContent = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("hours").textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minutes").textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("seconds").textContent = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            };
+            const countdownInterval = setInterval(updateCountdown, 1000);
+
+            // Swiper for Food and Gallery
+            new Swiper('.food-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+            });
+            new Swiper('.gallery-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                pagination: { el: '.swiper-pagination', clickable: true },
+                autoplay: { delay: 5000 }
+            });
+
+            // Three.js Hero Background
+            const heroCanvasContainer = document.getElementById('hero-three-canvas');
+            if (heroCanvasContainer) {
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, heroCanvasContainer.offsetWidth / heroCanvasContainer.offsetHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                renderer.setSize(heroCanvasContainer.offsetWidth, heroCanvasContainer.offsetHeight);
+                heroCanvasContainer.appendChild(renderer.domElement);
+
+                const particleCount = 1000;
+                const particles = new THREE.BufferGeometry();
+                const positions = new Float32Array(particleCount * 3);
+                const colors = new Float32Array(particleCount * 3);
+                const baseColors = [0xa5b4fc, 0xf9a8d4, 0xfde68a].map(hex => new THREE.Color(hex));
+
+                for (let i = 0; i < particleCount; i++) {
+                    const i3 = i * 3;
+                    positions[i3] = (Math.random() - 0.5) * 20;
+                    positions[i3 + 1] = (Math.random() - 0.5) * 20;
+                    positions[i3 + 2] = (Math.random() - 0.5) * 20;
+                    const color = baseColors[Math.floor(Math.random() * baseColors.length)];
+                    colors[i3] = color.r;
+                    colors[i3 + 1] = color.g;
+                    colors[i3 + 2] = color.b;
+                }
+                particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+                const particleMaterial = new THREE.PointsMaterial({ size: 0.1, vertexColors: true, transparent: true, opacity: 0.7 });
+                const particleSystem = new THREE.Points(particles, particleMaterial);
+                scene.add(particleSystem);
+
+                camera.position.z = 10;
+
+                const animateHero = () => {
+                    requestAnimationFrame(animateHero);
+                    particleSystem.rotation.y += 0.002;
+                    renderer.render(scene, camera);
+                };
+
+                window.addEventListener('resize', () => {
+                    camera.aspect = heroCanvasContainer.offsetWidth / heroCanvasContainer.offsetHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(heroCanvasContainer.offsetWidth, heroCanvasContainer.offsetHeight);
+                });
+
+                animateHero();
+                window.heroThreeScene = {
+                    updateTheme: (theme) => {
+                        particleMaterial.opacity = theme === 'dark' ? 0.5 : 0.7;
+                    }
+                };
+            }
+
+            // Three.js Interactive Section (Sun, Earth, Moon)
+            const threeContainer = document.getElementById('three-container');
+            const loader3D = document.getElementById('3d-loader');
+            if (threeContainer) {
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(60, threeContainer.offsetWidth / threeContainer.offsetHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(threeContainer.offsetWidth, threeContainer.offsetHeight);
+                threeContainer.appendChild(renderer.domElement);
+
+                const controls = new OrbitControls(camera, renderer.domElement);
+                controls.enableDamping = true;
+                controls.dampingFactor = 0.05;
+                controls.minDistance = 5;
+                controls.maxDistance = 50;
+                controls.autoRotate = true;
+
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+                scene.add(ambientLight);
+                const sunLight = new THREE.PointLight(0xffe082, 2, 100);
+                sunLight.position.set(10, 10, 10);
+                scene.add(sunLight);
+
+                // Sun
+                const sunGeometry = new THREE.SphereGeometry(2, 32, 32);
+                const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xfde68a });
+                const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+                scene.add(sun);
+
+                // Earth
+                const earthGeometry = new THREE.SphereGeometry(1, 32, 32);
+                const earthMaterial = new THREE.MeshStandardMaterial({ color: 0x6ee7b7 });
+                const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+                earth.position.set(6, 0, 0);
+                scene.add(earth);
+
+                // Moon
+                const moonGeometry = new THREE.SphereGeometry(0.3, 32, 32);
+                const moonMaterial = new THREE.MeshStandardMaterial({ color: 0xe0e0e0 });
+                const moon = new THREE.Mesh(moonGeometry, moonMaterial);
+                moon.position.set(7.5, 0, 0);
+                scene.add(moon);
+
+                camera.position.set(0, 5, 15);
+
+                const animate3D = () => {
+                    requestAnimationFrame(animate3D);
+                    earth.rotation.y += 0.01;
+                    moon.rotation.y += 0.005;
+                    moon.position.set(6 + Math.cos(Date.now() * 0.001) * 1.5, 0, Math.sin(Date.now() * 0.001) * 1.5);
+                    controls.update();
+                    renderer.render(scene, camera);
+                };
+
+                loader3D.style.opacity = '0';
+                setTimeout(() => loader3D.style.display = 'none', 500);
+
+                window.addEventListener('resize', () => {
+                    camera.aspect = threeContainer.offsetWidth / threeContainer.offsetHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(threeContainer.offsetWidth, threeContainer.offsetHeight);
+                });
+
+                animate3D();
+                window.interactiveThreeScene = {
+                    updateTheme: (theme) => {
+                        sunMaterial.color.setHex(theme === 'dark' ? 0xfacc15 : 0xfde68a);
+                        earthMaterial.color.setHex(theme === 'dark' ? 0x10b981 : 0x6ee7b7);
+                    }
+                };
+            }
+
+            // p5.js Background
+            const p5Container = document.getElementById('p5-background-canvas');
+            if (p5Container) {
+                const sketch = (p) => {
+                    let particles = [];
+                    const numParticles = 50;
+                    let bgColor = p.color(245, 245, 245, 255);
+                    let particleColor = p.color(165, 180, 252, 50);
+
+                    class Particle {
+                        constructor() {
+                            this.pos = p.createVector(p.random(p.width), p.random(p.height));
+                            this.vel = p5.Vector.random2D().mult(p.random(0.2, 0.5));
+                            this.size = p.random(8, 20);
+                        }
+                        update() {
+                            this.pos.add(this.vel);
+                            if (this.pos.x < 0) this.pos.x += p.width;
+                            if (this.pos.x > p.width) this.pos.x -= p.width;
+                            if (this.pos.y < 0) this.pos.y += p.height;
+                            if (this.pos.y > p.height) this.pos.y -= p.height;
+                        }
+                        show() {
+                            p.noStroke();
+                            p.fill(particleColor);
+                            p.ellipse(this.pos.x, this.pos.y, this.size);
+                        }
+                    }
+
+                    p.setup = () => {
+                        p.createCanvas(p.windowWidth, p.windowHeight).parent(p5Container);
+                        for (let i = 0; i < numParticles; i++) particles.push(new Particle());
+                    };
+
+                    p.draw = () => {
+                        p.background(bgColor);
+                        particles.forEach(p => {
+                            p.update();
+                            p.show();
+                        });
+                    };
+
+                    p.windowResized = () => p.resizeCanvas(p.windowWidth, p.windowHeight);
+
+                    p.updateTheme = (theme) => {
+                        bgColor = theme === 'dark' ? p.color(26, 26, 26, 255) : p.color(245, 245, 245, 255);
+                        particleColor = theme === 'dark' ? p.color(76, 110, 245, 30) : p.color(165, 180, 252, 50);
+                    };
+                };
+                window.p5Sketch = new p5(sketch);
+            }
+
+            // Smooth Scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(anchor.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        mobileMenu.classList.remove('open');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
